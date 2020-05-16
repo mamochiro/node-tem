@@ -1,0 +1,67 @@
+{
+  "name": "api-port",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "apidoc": {
+    "title": "Robowealth API documents",
+    "url": "https://apidoc.robowealth.co.th"
+  },
+  "scripts": {
+    "apidoc": "apidoc -i src/ -o apidoc/",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all",
+    "start": "yarn dev",
+    "dev": "NODE_ENV=development babel-node ./src/server.js",
+    "clean": "rm -rf build && mkdir build",
+    "build:server": "babel -d ./build ./src -s --ignore ./src/migrations && cp -a ./src/migrations/ ./build/migrations/",
+    "build": "yarn clean && yarn build:server",
+    "prod": "NODE_ENV=production node ./build/server.js",
+    "watch": "nodemon",
+    "test": "NODE_ENV=test mocha --require @babel/register --require @babel/polyfill tests/**/*.test.js --exit",
+    "test:coverage": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill tests/**/*.test.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.5",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "~4.16.1",
+    "express-validator": "^6.1.1",
+    "helmet": "^3.18.0",
+    "method-override": "^3.0.0",
+    "morgan": "~1.9.1",
+    "pg": "^7.11.0",
+    "sequelize": "^5.8.6",
+    "sequelize-cli": "^5.4.0",
+    "sequelize-values": "^1.1.0",
+    "validatorjs": "^3.15.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "apidoc": "^0.17.7",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
+    "supertest": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitUrl"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

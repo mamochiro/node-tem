@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  #NodeJS Express Template
+  nodejs-express-template:
+    build:
+      context: ./
+      dockerfile: ./dev.dockerfile
+    command: sh ./docker-start.sh
+    volumes:
+      - ./:/usr/src/app
+    ports:
+    - "3013:3000"
+    environment:
+      NODE_PORT: 3000
+      NODE_ENV: "development"
+      DB_NAME: "postgres"
+      DB_USERNAME: "markdev"
+      DB_PASSWORD: "markdev"
+      DB_HOST: "fullstack-postgres"
+      DB_PORT: 5432
+      DB_DIALECT: "account"
+      EXAMPLE_ENV: "EXAMPLE"
+      
+  fullstack-postgres:
+    image: postgres:latest
+    container_name: full_db_postgres
+    environment:
+      - "POSTGRES_DB=account"
+      - "POSTGRES_USER=markdev"
+      - "POSTGRES_PASSWORD=markdev"
+    ports:
+      - '5432:5432'
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - fullstack
+    
+volumes:
+  api:
+  database_postgres:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  fullstack:
+    driver: bridge
